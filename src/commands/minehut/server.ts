@@ -78,7 +78,7 @@ export class ServerCommand {
 			`📈 Players: ${data.playerCount}${maxPlayers !== undefined ? `/${maxPlayers}` : ''} (Total Joins: ${data.joins})`,
 			`📁 Categories: ${data.categories.length == 0 ? 'None' : data.categories.join(', ')}`,
 			owner ? `👑 Owner: ${owner}` : undefined,
-			plan === 'Starter' ? `🕓 Daily Time Left: ${formatMs(data.getDailyTimeLeft())}` : undefined,
+            plan === 'Starter' ? `🚀 Boosts: ${data.boosts}` : undefined
 		]);
 
 		const embed = new EmbedBuilder()
