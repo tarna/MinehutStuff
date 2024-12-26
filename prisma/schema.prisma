@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model Guild {
+    id     String  @id @map("_id")
+    name   String
+    public Boolean @default(false)
+
+    invite String?
+
+    banned       Boolean   @default(false)
+    bannedReason String?
+    bannedAt     DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("guilds")
+}
+
+model User {
+    id                String    @id @map("_id")
+    name              String
+    acceptedTerms     Boolean   @default(false)
+    lastAcceptedTerms DateTime?
+
+    banned       Boolean   @default(false)
+    bannedReason String?
+    bannedAt     DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("users")
+}
+
+model SupportDM {
+    id       String @id @default(cuid()) @map("_id")
+    userId   String @unique
+    threadId String @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("support_dms")
+}
+
+model ChannelTracker {
+    id String @id @default(cuid()) @map("_id")
+
+    serverId  String
+    guildId   String
+    channelId String @unique
+    format    String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("channel_trackers")
+}
+
+model MlnehutRequest {
+    id       String @id @default(cuid()) @map("_id")
+    userId   String
+    key      String
+    redirect String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("mlnehut_requests")
+}
+
+model MlnehutRedirect {
+    id       String @id @default(cuid()) @map("_id")
+    userId   String
+    key      String @unique
+    redirect String
+    uses     Int    @default(0)
+
+    lastUsed  DateTime @default(now())
+    createdAt DateTime @default(now())
+
+    @@map("mlnehut_redirects")
+}
