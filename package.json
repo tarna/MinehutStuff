@@ -5,6 +5,7 @@
     "scripts": {
         "start": "bun src/index.ts",
         "generate": "prisma generate",
+        "prod": "bunx prisma generate & bun src/index.ts",
         "script:icons-download": "bun scripts/iconsDownload.ts",
         "script:icons-upload": "bun scripts/iconsUpload.ts"
     },
@@ -15,6 +16,7 @@
         "cron": "^3.3.1",
         "discord.js": "^14.16.3",
         "discordx": "^11.12.2",
+        "fs": "^0.0.1-security",
         "minehut": "0.0.77"
     },
     "devDependencies": {

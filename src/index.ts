@@ -8,6 +8,7 @@ import { BanManager } from './utils/managers/banManager';
 import { BannedGuard } from './guards/bannedGuard';
 import { GuildManager } from './utils/managers/guild/guildManager';
 import { startChannelTrackerJob } from './jobs/channelTrackerJob';
+import { logToFile } from './utils/log';
 
 export const minehut = new Minehut();
 export const prisma = new PrismaClient();
@@ -87,4 +88,16 @@ client.on('messageCreate', async message => {
     if (!config.discord.ownerIds.includes(message.author.id)) return;
 
     client.executeCommand(message);
+});
+
+process.on('uncaughtException', (error) => {
+    logToFile('errors.log', error.stack);
+});
+
+process.on('unhandledRejection', (error) => {
+    logToFile('errors.log', error.toString());
+});
+
+process.on('exit', () => {
+    logToFile('errors.log', 'Process exited');
 });
