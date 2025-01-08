@@ -91,13 +91,13 @@ client.on('messageCreate', async message => {
 });
 
 process.on('uncaughtException', (error) => {
-    logToFile('errors.log', error.stack);
+    logToFile('errors', error.stack);
 });
 
 process.on('unhandledRejection', (error) => {
-    logToFile('errors.log', error.toString());
+    logToFile('errors', error.toString());
 });
 
 process.on('exit', () => {
-    logToFile('errors.log', 'Process exited');
+    logToFile('errors', 'Process exited');
 });
