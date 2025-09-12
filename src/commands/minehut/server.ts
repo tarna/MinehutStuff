@@ -5,7 +5,7 @@ import { DefaultCommandOptions } from '../../utils/discord';
 import type { ServerListServer } from 'minehut/dist/server/ServerResponse';
 import type { Server } from 'minehut/dist/server/Server';
 import { cleanMOTD } from '../../utils/minehut';
-import { formatMs, listToString } from '../../utils/functions';
+import { listToString } from '../../utils/functions';
 
 let serverListCache: {
 	lastUpdate: number;
@@ -101,7 +101,6 @@ export class ServerCommand {
 						`The server is using ${plan === 'CUSTOM' ? 'a' : 'the'} \`${plan} plan\``,
 						`Price: ${Math.round(data.creditsPerDay)} credits/day`,
 						`Icons Unlocked: ${icons.map((icon) => icon.displayName).join(', ')}`,
-						`Marked for Deletion: ${data.deletion.started ? '✅' : '❌'}`,
 					]),
 					inline: true,
 				}
